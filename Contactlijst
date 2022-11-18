@@ -1,0 +1,99 @@
+#Print de hoeveelheid contacten
+def contact_amount(contacts):
+  conamo = 0
+  for key in contacts:
+    conamo = conamo + 1
+  print("U heeft " + str(conamo) + " contact(en).")
+
+#Print de lijst van contacten
+
+def show_contacts(contacts):
+  for key, value in contacts.items():
+    print(key,value)
+
+#Als deze function wort geroepen kan het de naam "veranderen" door een nieuwe key te maken met de oude value en de oude key te deleten
+def if_name(contacts):
+  edit_name = input("Naam van contact?: ")
+  if not edit_name in contacts:
+    print("Deze naam bestaat niet.")
+  else:
+    new_name = input("Nieuwe naam?: ")
+    contacts[new_name] = contacts[edit_name]
+    del contacts[edit_name]
+
+#Als deze wort geroept veranderd het de value van een bepaalde key
+def if_number(contacts):
+  name = input("Naam van contact?: ")
+  if not name in contacts:
+    print("Deze naam bestaat niet.")
+  else:
+    new_number = input("Nieuw nummer?: ")
+    contacts[name] = new_number
+
+#Hier kan je kiezen wat je wilt doen als je '3' geselecteerd heb in het menu.
+def editor(contacts):
+  print("===================================")
+  loop = True
+  while loop:
+    edit = input("Naam of nummer?: ")
+    if edit == "naam":
+      if_name()
+      loop = False
+      main(contacts)
+    elif edit == "nummer":
+      if_number()
+      loop = False
+      main(contacts)
+    else:
+      print("Voer 'naam' of 'nummer' in")
+
+#Deleter deletes een key uit de dictionairy
+def deleter(contacts):
+  print("===================================")
+  del_name = input("Welk contact?: ")
+  if not del_name in contacts:
+    print("Deze naam bestaat niet.")
+  else:
+    del contacts[del_name]
+
+#De main functie, waar zich alles plaats vind
+def main(contacts):
+  #Het menu scherm
+  print("===================================")
+  print("1. Bekijk jouw contacten.")
+  print("2. Voeg een contact toe.")
+  print("3. Pas een contact aan.")
+  print("4. Verwijder een contact.")
+  print("Voer 'stop' in om te stoppen.")
+  print("===================================")
+  opt = input("Wat is uw keuze?: ")
+  #Als je 1 kiest dan voert het deze functies uit
+  if opt == "1":
+    print("===================================")
+    contact_amount(contacts)
+    show_contacts(contacts)
+    main(contacts)
+  #Als je 2 kiest vraagt het voor een naam en een nummer en voegt het toe aan de dictionary
+  elif opt == "2":
+    print("===================================")
+    add_name = input("Naam?: ")
+    add_number = input("Nummer?: ")
+    contacts[add_name] = add_number
+    main(contacts)
+  #Als je 3 kiest dan voert het de editor functie uit
+  elif opt == "3":
+    editor(contacts)
+  #als je 4 kiest kan je een key & value verwijderen door een naam in te voeren
+  elif opt == "4":
+    deleter(contacts)
+  #Invoering van "stop" stopt het programma
+  elif opt == "stop":
+    print("Doei!")
+  else:
+    print("Voer het getal gelijk aan uw keuze in.")
+    main(contacts)
+
+#De dictionary waar alle contecten worden opgeslagen
+contacts = {}
+
+main(contacts)
